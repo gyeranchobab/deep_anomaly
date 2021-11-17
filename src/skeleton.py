@@ -93,8 +93,8 @@ class BaseModel(nn.Module):
             os.mkdir('./train_logs')
 
         print('(%.2fs) [Epoch %d]'%(time.time()-ts, self.e+1))
-        print('\tTrain Loss : %.4e\tTrain Score : %.4f'%(train_loss, train_score))
-        print('\tEval Loss : %.4e\tEval Score : %.4f'%(eval_loss, eval_score))
+        print('\tTrain Loss : %.4g\tTrain Score : %.4g'%(train_loss, train_score))
+        print('\tEval Loss : %.4g\tEval Score : %.4g'%(eval_loss, eval_score))
         torch.save(self.state_dict(), './saved_models/%s_e%d.pth'%(self.model_name, self.e+1))
         with open('./train_logs/%s.bin'%(self.model_name), 'wb') as f_log:
             pickle.dump(self.logs, f_log)
