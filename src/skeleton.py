@@ -51,9 +51,9 @@ class BaseModel(nn.Module):
             
             loss, score = self.batch_step(batch, masked_label, mask, optimizer=optimizer, **kwargs)
             
-            avg_loss = (n*avg_loss + loss*mask.sum()) / (n+mask.sum()+1e-10)
-            avg_score = (n*avg_score + score*mask.sum()) / (n+mask.sum()+1e-10)
-            n = n+mask.sum()#batch.shape[0]
+            avg_loss = (n*avg_loss + loss*mask.sum().item()) / (n+mask.sum().item()+1e-10)
+            avg_score = (n*avg_score + score*mask.sum().item()) / (n+mask.sum().item()+1e-10)
+            n = n+mask.sum().item()#batch.shape[0]
         return avg_loss, avg_score
     
     def batch_step(self, batch, label, mask, optimizer=None):
