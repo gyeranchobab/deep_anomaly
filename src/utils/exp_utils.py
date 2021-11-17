@@ -56,6 +56,7 @@ def plot_latent(model, epoch, test_loader, method='pca', split='test'):
         elif label.dtype == torch.double:
             label = label.to(dtype=torch.float)
         mask=mask.cuda().to(dtype=torch.bool)
+        batch = model.preprocess(batch, label, mask)
         with torch.no_grad():
             pred, z = model.get_z(batch, label, mask)
         pred = torch.argmax(pred, dim=1)
@@ -141,8 +142,11 @@ def make_confmat(model, epoch, test_loader):
         elif label.dtype == torch.double:
             label = label.to(dtype=torch.float)
         mask=mask.cuda().to(dtype=torch.bool)
+        batch = model.preprocess(batch, label, mask)
         with torch.no_grad():
             pred = model(batch, label, mask)
+        if isinstance(pred, tuple):
+            pred = pred[0]
         pred = torch.argmax(pred, dim=1)
         preds.append(pred.cpu())
         labels.append(label.cpu())
