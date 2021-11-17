@@ -67,13 +67,13 @@ class RotorDataset(Dataset):
                         maxlog = multivariate_data.max(axis=0)
                         if ykey=='rs':
                             if self.lb is None:
-                                self.lb =minlog
+                                self.lb =minlog.reshape(-1,1)
                             else:
-                                self.lb = np.minimum(minlog, self.lb)
+                                self.lb = np.minimum(minlog.reshape(-1,1), self.lb)
                             if self.ub is None:
-                                self.ub = maxlog
+                                self.ub = maxlog.reshape(-1,1)
                             else:
-                                self.ub = np.maximum(maxlog, self.ub)
+                                self.ub = np.maximum(maxlog.reshape(-1,1), self.ub)
             self.DATA.append(DATA)
             self.label.append(key2y[ykey])
         self.label = np.array(self.label)
