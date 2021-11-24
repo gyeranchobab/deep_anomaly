@@ -39,7 +39,7 @@ class BaseModel(nn.Module):
         n=0
         for batch, label, mask in dataloader:
             batch=batch.cuda().to(dtype=torch.float)
-            label=label.cuda()#.to(dtype=torch.long)
+            label=label.cuda()
             if label.dtype == torch.int32:
                 label = label.to(dtype=torch.long)
             elif label.dtype == torch.double:
@@ -108,7 +108,7 @@ class BaseModel(nn.Module):
         self.eval()
         for batch, label, mask in dataloader:
             batch=batch.cuda().to(dtype=torch.float)
-            label=label.cuda()#.to(dtype=torch.long)
+            label=label.cuda()
             if label.dtype == torch.int32:
                 label = label.to(dtype=torch.long)
             elif label.dtype == torch.double:
